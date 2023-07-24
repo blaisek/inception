@@ -1,3 +1,11 @@
-#INCEPTION
+# INCEPTION
 
-##Ce projet a pour but d’approfondir vos connaissances en vous faisant utiliser Docker. Vous allez virtualiser plusieurs images Docker en les créant dans votre nouvelle machine virtuelle personnelle
+42Cursus | This project aims to broaden your knowledge of system administration by using Docker
+
+## Docker containers
+
+
+## how to build and deployed
+
+
+## how to stop and remove
