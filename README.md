@@ -4,8 +4,18 @@
 
 ## Docker containers
 
+- NGINX
+- MariaDB
+- WordPress
+
 
 ## how to build and deployed
 
-
+```sh
+   $ make
+   ```
 ## how to stop and remove
+
+   ```sh
+	$ make clean
+	```
