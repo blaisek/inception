@@ -1,7 +1,4 @@
 #!/bin/bash
-#
-# bash scripts to generate env file
-# Usage: ./env-gen.sh
 
 # Color
 RED='\033[0;31m'
@@ -31,39 +28,37 @@ if [ -f $ENV_PATH ]; then
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo -e "\n\nOverwriting .env file"
     rm $ENV_PATH
-    cp $BASEDIR.env.example $ENV_PATH
   # if no, exit
   else
     echo -e "\n${RED}Exiting${NC}"
     exit 1
   fi
-# if .env file does not exist, create it
-else
-  echo -e "${YELLOW}Creating .env file${NC}"
-  cp $BASEDIR.env.example $ENV_PATH
 fi
 
 # Fill .env variables with prompt input
 echo -e "\n${GREY}Enter your database root password:${NC}"
 read -r MYSQL_ROOT_PASSWORD
-sed -i "s/MYSQL_ROOT_PASSWORD=.*/MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD/" $ENV_PATH
 echo -e "\n${GREY}Enter your database password:${NC}"
 read -r MYSQL_PASSWORD
-sed -i "s/MYSQL_PASSWORD=.*/MYSQL_PASSWORD=$MYSQL_PASSWORD/" $ENV_PATH
 echo -e "\n${GREY}Enter your database name:${NC}"
 read -r MYSQL_DATABASE
-sed -i "s/MYSQL_DATABASE=.*/MYSQL_DATABASE=$MYSQL_DATABASE/" $ENV_PATH
 echo -e "\n${GREY}Enter your database user:${NC}"
 read -r MYSQL_USER
-sed -i "s/MYSQL_USER=.*/MYSQL_USER=$MYSQL_USER/" $ENV_PATH
 echo -e "\n${GREY}Enter your wp admin user:${NC}"
+read -r WP_ADMIN_USER
 
 # if .env not filled exit
-if [ -z "$MYSQL_ROOT_PASSWORD" ] || [ -z "$MYSQL_PASSWORD" ] || [ -z "$MYSQL_DATABASE" ] || [ -z "$MYSQL_USER" ]; then
+if [ -z "$MYSQL_ROOT_PASSWORD" ] || [ -z "$MYSQL_PASSWORD" ] || [ -z "$MYSQL_DATABASE" ] || [ -z "$MYSQL_USER" ] || [ -z "$WP_ADMIN_USER" ]; then
   echo -e "\n${RED}Error: .env file not filled${NC}"
   exit 1
 else
-  # if .env filled, success
+  # if .env filled, create .env file
+  echo -e "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" > $ENV_PATH
+  echo -e "MYSQL_PASSWORD=$MYSQL_PASSWORD" >> $ENV_PATH
+  echo -e "MYSQL_DATABASE=$MYSQL_DATABASE" >> $ENV_PATH
+  echo -e "MYSQL_USER=$MYSQL_USER" >> $ENV_PATH
+  echo -e "WP_ADMIN_USER=$WP_ADMIN_USER" >> $ENV_PATH
+
+  # Success message
   echo -e "\n${GREEN}Success!${NC} .env file created"
 fi
-

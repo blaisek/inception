@@ -4,23 +4,28 @@ RED 		= \033[1;31m
 ORANGE		= \033[1;33m
 CYAN		= \033[1;36m
 
+# VARIABLES
+ENVSCRIPT = ./srcs/requirements/tools/envGen.sh
+DOCKERCOMPOSE = ./srcs/docker-compose.yml
+
 all: env
 	@echo "${GREEN}Starting containers.."
-	@docker compose -f ./srcs/docker-compose.yml up -d --build
+	@docker compose -f $(DOCKERCOMPOSE) up -d --build
 
 env: ## Create/Overwrite .env file
-	@bash ./srcs/requirements/tools/env-gen.sh
+	chmod + x $(ENVSCRIPT)
+	@bash $(ENVSCRIPT)
 
 host: ## Add domain to /etc/hosts
 	@bash ./srcs/requirements/tools/add-host.sh
 
 down:
 	@echo "${RED}Stoping containers.." 
-	@docker compose -f ./srcs/docker-compose.yml down
+	@docker compose -f $(DOCKERCOMPOSE) down
 
 re:
 	@echo "${CYAN}Reset.."
-	@docker compose -f ./srcs/docker-compose.yml up -d --build
+	@docker compose -f $(DOCKERCOMPOSE) up -d --build
 
 clean:
 	@echo "${ORANGE}Stoping and Removing containers.."
