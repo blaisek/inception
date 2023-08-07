@@ -11,6 +11,7 @@ NC='\033[0m'
 # Variables
 BASEDIR=./srcs/
 ENV_PATH=$BASEDIR.env
+DOMAIN=btchiman.ch
 
 # Catch if ctrl+c is pressed
 trap ctrl_c INT
@@ -46,18 +47,22 @@ echo -e "\n${GREY}Enter your database user:${NC}"
 read -r MYSQL_USER
 echo -e "\n${GREY}Enter your wp admin user:${NC}"
 read -r WP_ADMIN_USER
+echo -e "\nPlease enter the value for DOMAIN (e.g., mydomain.com):"
+read -r DOMAIN
 
 # if .env not filled exit
-if [ -z "$MYSQL_ROOT_PASSWORD" ] || [ -z "$MYSQL_PASSWORD" ] || [ -z "$MYSQL_DATABASE" ] || [ -z "$MYSQL_USER" ] || [ -z "$WP_ADMIN_USER" ]; then
+if [ -z "$MYSQL_ROOT_PASSWORD" ] || [ -z "$MYSQL_PASSWORD" ] || [ -z "$MYSQL_DATABASE" ] || [ -z "$MYSQL_USER" ] || [ -z "$WP_ADMIN_USER" ] || [ -z "$DOMAIN" ] ; then
   echo -e "\n${RED}Error: .env file not filled${NC}"
   exit 1
 else
   # if .env filled, create .env file
-  echo -e "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" > $ENV_PATH
+  echo -e "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> $ENV_PATH
   echo -e "MYSQL_PASSWORD=$MYSQL_PASSWORD" >> $ENV_PATH
   echo -e "MYSQL_DATABASE=$MYSQL_DATABASE" >> $ENV_PATH
   echo -e "MYSQL_USER=$MYSQL_USER" >> $ENV_PATH
   echo -e "WP_ADMIN_USER=$WP_ADMIN_USER" >> $ENV_PATH
+  echo -e "DOMAIN=$DOMAIN" >> "$ENV_PATH"
+
 
   # Success message
   echo -e "\n${GREEN}Success!${NC} .env file created"

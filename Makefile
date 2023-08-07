@@ -13,8 +13,8 @@ all: env
 	@docker compose -f $(DOCKERCOMPOSE) up -d --build
 
 env: ## Create/Overwrite .env file
-	chmod + x $(ENVSCRIPT)
-	@bash $(ENVSCRIPT)
+	@chmod +x $(ENVSCRIPT)
+	-bash $(ENVSCRIPT)
 
 host: ## Add domain to /etc/hosts
 	@bash ./srcs/requirements/tools/add-host.sh

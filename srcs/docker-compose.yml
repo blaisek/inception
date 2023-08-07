@@ -1,5 +1,9 @@
 version: '3.9'
 
+networks:
+  inception:
+    driver: bridge
+
 services:
 
   # DATABASE
@@ -10,10 +14,9 @@ services:
     restart: always
     env_file: .env
     volumes:
-      - ~/data/mariadb:/var/lib/mysql
-      - db_volume:/var/lib/mysql
+      - mariadb:/var/lib/mysql
     networks:
-      - 42-network
+      - inception
 
   # WORDPRESS
   wordpress:
@@ -25,12 +28,11 @@ services:
     restart: always
     env_file: .env
     volumes:
-      - ~/data/wordpress:/var/www/${DOMAIN}
-      - wp_volume:/var/www/${DOMAIN}
+      - wordpress:/var/www/${DOMAIN}
     depends_on:
       - mariadb
     networks:
-      - 42-network
+      - inception
 
   # SERVER
   nginx:
@@ -44,8 +46,8 @@ services:
     ports:
       - "443:443"
     volumes:
-      - wp_volume:/var/www/${DOMAIN}
+      - wordpress:/var/www/${DOMAIN}
     depends_on:
       - wordpress
     networks:
-      - 42-network
+      - inception
