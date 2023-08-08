@@ -28,7 +28,7 @@ services:
     restart: always
     env_file: .env
     volumes:
-      - wordpress:/var/www/${DOMAIN}
+      - wordpress_data:/var/www/${DOMAIN}
     depends_on:
       - mariadb
     networks:
@@ -46,8 +46,12 @@ services:
     ports:
       - "443:443"
     volumes:
-      - wordpress:/var/www/${DOMAIN}
+      - wordpress_data:/var/www/${DOMAIN}
     depends_on:
       - wordpress
     networks:
       - inception
+
+volumes:
+  mariadb:
+  wordpress_data:
