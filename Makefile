@@ -8,9 +8,13 @@ CYAN		= \033[1;36m
 ENVSCRIPT = ./srcs/requirements/tools/envGen.sh
 DOCKERCOMPOSE = ./srcs/docker-compose.yml
 
-all: env
+all: env up
+	
+
+up:
 	@echo "${GREEN}Starting containers.."
 	@docker compose -f $(DOCKERCOMPOSE) up -d --build
+
 
 env: ## Create/Overwrite .env file
 	@chmod +x $(ENVSCRIPT)
@@ -23,9 +27,8 @@ down:
 	@echo "${RED}Stoping containers.." 
 	@docker compose -f $(DOCKERCOMPOSE) down
 
-re:
-	@echo "${CYAN}Reset.."
-	@docker compose -f $(DOCKERCOMPOSE) up -d --build
+re: clean up
+	@echo "${CYAN}Restarted.."
 
 clean:
 	@echo "${ORANGE}Stoping and Removing containers.."
@@ -35,4 +38,4 @@ clean:
 	docker volume rm $$(docker volume ls -q);\
 	docker network rm $$(docker network ls -q);\
 
-	.PHONY: all re down clean env host
+	.PHONY: all up re down clean env host

@@ -7,8 +7,8 @@ RUN apt-get update && \
 # Create directory for nginx SSL and generate a self-signed SSL certificate
 RUN mkdir /etc/nginx/ssl && \
     openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
-    -out /etc/nginx/ssl/vbachele.crt \
-    -keyout /etc/nginx/ssl/vbachele.key \
+    -out /etc/nginx/ssl/btchiman.crt \
+    -keyout /etc/nginx/ssl/btchiman.key \
     -subj "/C=FR/ST=Paris/L=Paris/O=42 School/OU=vbachele/CN=vbachele/"
 
 # Copy nginx configuration file
