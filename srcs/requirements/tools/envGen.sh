@@ -11,7 +11,7 @@ NC='\033[0m'
 # Variables
 BASEDIR=./srcs/
 ENV_PATH=$BASEDIR.env
-DOMAIN=btchiman.ch
+DOMAIN=btchiman.42.fr
 
 # Catch if ctrl+c is pressed
 trap ctrl_c INT
@@ -47,8 +47,7 @@ echo -e "\n${GREY}Enter your database user:${NC}"
 read -r MYSQL_USER
 echo -e "\n${GREY}Enter your wp admin user:${NC}"
 read -r WP_ADMIN_USER
-echo -e "\nPlease enter the value for DOMAIN (e.g., mydomain.com):"
-read -r DOMAIN
+
 
 # if .env not filled exit
 if [ -z "$MYSQL_ROOT_PASSWORD" ] || [ -z "$MYSQL_PASSWORD" ] || [ -z "$MYSQL_DATABASE" ] || [ -z "$MYSQL_USER" ] || [ -z "$WP_ADMIN_USER" ] || [ -z "$DOMAIN" ] ; then

@@ -9,9 +9,10 @@ ENVSCRIPT = ./srcs/requirements/tools/envGen.sh
 DOCKERCOMPOSE = ./srcs/docker-compose.yml
 
 all: env up
-	
 
 up:
+	@mkdir -p /home/btchiman/data/mariadb
+	@mkdir -p /home/btchiman/data/wordpress
 	@echo "${GREEN}Starting containers.."
 	@docker compose -f $(DOCKERCOMPOSE) up -d --build
 
@@ -20,22 +21,19 @@ env: ## Create/Overwrite .env file
 	@chmod +x $(ENVSCRIPT)
 	-bash $(ENVSCRIPT)
 
-host: ## Add domain to /etc/hosts
-	@bash ./srcs/requirements/tools/add-host.sh
-
 down:
 	@echo "${RED}Stoping containers.." 
-	@docker compose -f $(DOCKERCOMPOSE) down
+	@docker compose -f $(DOCKERCOMPOSE) down #--remove-orphans --rmi all
 
-re: clean up
+re: 
+	@docker compose -f $(DOCKERCOMPOSE) restart
 	@echo "${CYAN}Restarted.."
 
-clean:
-	@echo "${ORANGE}Stoping and Removing containers.."
-	@docker stop $$(docker ps -qa);\ 
-	docker rm $$(docker ps -qa);\
-	docker rmi -f $$(docker images -qa);\
-	docker volume rm $$(docker volume ls -q);\
-	docker network rm $$(docker network ls -q);\
+clean: down
+	@echo "${ORANGE}Removing containers.."
+	@docker rmi -f $$(docker images -q)
+	@echo "${ORANGE}Removing volumes.."
+	@docker volume rm $$(docker volume ls -q)
 
-	.PHONY: all up re down clean env host
+
+	.PHONY: all up re down clean env
