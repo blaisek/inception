@@ -13,8 +13,8 @@
 ## Docker containers
 
 - NGINX
-  - MariaDB
-  - WordPress
+- MariaDB
+- WordPress
 
 # Commands 💻
 
