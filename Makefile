@@ -11,8 +11,6 @@ DOCKERCOMPOSE = ./srcs/docker-compose.yml
 all: env up
 
 up:
-	@mkdir -p /home/btchiman/data/mariadb
-	@mkdir -p /home/btchiman/data/wordpress
 	@echo "${GREEN}Starting containers.."
 	@docker compose -f $(DOCKERCOMPOSE) up -d --build
 
