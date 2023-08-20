@@ -4,17 +4,17 @@
 
 # Table of Contents
 1. [Mandatory Part](#docker-containers)
-2. [Commands](#Commands)
+2. [Commands](#commands)
 3. [Project Structure](#project-structure)
-4. [Resources](#Resources)
+4. [Resources](#resources)
 
 
 
 ## Docker containers
 
 - NGINX
-- MariaDB
-- WordPress
+  - MariaDB
+  - WordPress
 
 #  Commands 💻
 
@@ -93,13 +93,13 @@ srcs
 #  Ressources 📚
 
 - [Docker](https://docs.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
-- [Nginx](https://nginx.org/en/docs/)
-- [MariaDB](https://mariadb.org/documentation/)
-- [WordPress](https://wordpress.org/support/)
-- [phpMyAdmin](https://docs.phpmyadmin.net/en/latest/)
-- [Dockerfile](https://docs.docker.com/engine/reference/builder/)
-- [Docker Compose file](https://docs.docker.com/compose/compose-file/)
-- [Docker volumes](https://docs.docker.com/storage/volumes/)
-- [Docker networks](https://docs.docker.com/network/)
-- [Docker environment variables](https://docs.docker.com/compose/environment-variables/)
+  - [Docker Compose](https://docs.docker.com/compose/)
+  - [Nginx](https://nginx.org/en/docs/)
+  - [MariaDB](https://mariadb.org/documentation/)
+  - [WordPress](https://wordpress.org/support/)
+  - [phpMyAdmin](https://docs.phpmyadmin.net/en/latest/)
+  - [Dockerfile](https://docs.docker.com/engine/reference/builder/)
+  - [Docker Compose file](https://docs.docker.com/compose/compose-file/)
+  - [Docker volumes](https://docs.docker.com/storage/volumes/)
+  - [Docker networks](https://docs.docker.com/network/)
+  - [Docker environment variables](https://docs.docker.com/compose/environment-variables/)
