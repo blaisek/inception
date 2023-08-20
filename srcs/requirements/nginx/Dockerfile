@@ -9,7 +9,7 @@ RUN mkdir /etc/nginx/ssl && \
     openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
     -out /etc/nginx/ssl/btchiman.crt \
     -keyout /etc/nginx/ssl/btchiman.key \
-    -subj "/C=FR/ST=Paris/L=Paris/O=42 School/OU=vbachele/CN=vbachele/"
+    -subj "/C=CH/ST=Lausanne/L=Lausanne/O=42 School/OU=btchiman/CN=btchiman"
 
 # Copy nginx configuration file
 COPY ./conf/nginx.conf /etc/nginx/conf.d
