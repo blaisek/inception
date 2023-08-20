@@ -5,8 +5,9 @@
 # Table of Contents
 1. [Mandatory Part](#docker-containers)
 2. [Commands](#commands)
-3. [Project Structure](#project-structure)
-4. [Resources](#resources)
+3. [Project Structure](#project-structure-)
+4. [Resources](#resources-)
+
 
 
 ## Docker containers
