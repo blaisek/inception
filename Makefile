@@ -6,18 +6,22 @@ CYAN		= \033[1;36m
 
 # VARIABLES
 ENVSCRIPT = ./srcs/requirements/tools/envGen.sh
+ADDHOSTSCRIPT = ./srcs/requirements/tools/addHost.sh
 DOCKERCOMPOSE = ./srcs/docker-compose.yml
 
-all: env up
+all: env host up
 
 up:
 	@echo "${GREEN}Starting containers.."
 	@docker compose -f $(DOCKERCOMPOSE) up -d --build
 
-
 env: ## Create/Overwrite .env file
 	@chmod +x $(ENVSCRIPT)
-	-bash $(ENVSCRIPT)
+	@bash $(ENVSCRIPT)
+
+host: ## Add domain to /etc/hosts
+	@chmod +x $(ADDHOSTSCRIPT)
+	@bash $(ADDHOSTSCRIPT)
 
 down:
 	@echo "${RED}Stoping containers.." 
