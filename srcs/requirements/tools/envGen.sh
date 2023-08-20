@@ -10,7 +10,7 @@ NC='\033[0m'
 
 # Variables
 BASEDIR=./srcs/
-VOLUME_DIR= /home/btchiman/data
+VOLUME_DIR=/home/btchiman/data
 ENV_PATH=$BASEDIR.env
 DOMAIN=btchiman.42.fr
 
@@ -39,7 +39,7 @@ if [ ! -d "$VOLUME_DIR" ]; then
 fi
 
 # Check if .env file exists in project
-if [ -f $ENV_PATH ]; then
+if [ -f "$ENV_PATH" ]; then
   echo -e "${YELLOW}.env file already exists${NC}"
   # ask if user wants to overwrite¨
   read -p "Do you want to overwrite it? [y/n] " -n 1 -r
