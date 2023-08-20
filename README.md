@@ -2,11 +2,12 @@
 
 ## This project aims to broaden your knowledge of system administration by using Docker
 
-# Table of contents
-1. [Mandatory part](#Docker-containers)
-2. [Commands](#Commands)
-3. [Project structure](#Project-structure)
-4. [Ressources](#Ressources)
+# Table of Contents
+1. [Mandatory Part](#docker-containers)
+2. [Commands](#commands)
+3. [Project Structure](#project-structure)
+4. [Resources](#resources)
+
 
 ## Docker containers
 
