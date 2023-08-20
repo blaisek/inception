@@ -4,9 +4,9 @@
 
 # Table of Contents
 1. [Mandatory Part](#docker-containers)
-2. [Commands](#commands)
-3. [Project Structure](#project-structure-)
-4. [Resources](#resources-)
+2. [Commands](#Commands)
+3. [Project Structure](#project-structure)
+4. [Resources](#Resources)
 
 
 
@@ -16,7 +16,7 @@
 - MariaDB
 - WordPress
 
-# 💻 Commands
+#  Commands 💻
 
 ## how to build create env variables create permanent data add host  and run
 
@@ -90,7 +90,7 @@ srcs
         └── Dockerfile
 ```
 
-# 📚 Ressources
+#  Ressources 📚
 
 - [Docker](https://docs.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
