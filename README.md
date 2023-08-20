@@ -1,6 +1,12 @@
-# INCEPTION
+# Welcome to inception 🐋
 
-## 42Cursus | This project aims to broaden your knowledge of system administration by using Docker
+## This project aims to broaden your knowledge of system administration by using Docker
+
+# Table of contents
+1. [Mandatory part](#Docker-containers)
+2. [Commands](#Commands)
+3. [Project structure](#Project-structure)
+4. [Ressources](#Ressources)
 
 ## Docker containers
 
@@ -8,6 +14,7 @@
 - MariaDB
 - WordPress
 
+# 💻 Commands
 
 ## how to build create env variables create permanent data add host  and run
 
@@ -50,7 +57,7 @@ $ make re
 ```sh
 $ make clean
 ```
-## Project structure
+# Project structure 📂
 
 ```bash
 srcs
@@ -81,7 +88,7 @@ srcs
         └── Dockerfile
 ```
 
-## Resources
+# 📚 Ressources
 
 - [Docker](https://docs.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
