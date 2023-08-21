@@ -48,10 +48,12 @@ echo -e "\n${GREY}Enter your database user:${NC}"
 read -r MYSQL_USER
 echo -e "\n${GREY}Enter your wp admin user:${NC}"
 read -r WP_ADMIN_USER
+echo -e "\n$(GREY)Enter your wp admin password:${NC}"
+read -r WP_ADMIN_PASSWORD
 
 
 # if .env not filled exit
-if [ -z "$MYSQL_ROOT_PASSWORD" ] || [ -z "$MYSQL_PASSWORD" ] || [ -z "$MYSQL_DATABASE" ] || [ -z "$MYSQL_USER" ] || [ -z "$WP_ADMIN_USER" ] || [ -z "$DOMAIN" ] ; then
+if [ -z "$MYSQL_ROOT_PASSWORD" ] || [ -z "$MYSQL_PASSWORD" ] || [ -z "$MYSQL_DATABASE" ] || [ -z "$MYSQL_USER" ] || [ -z "$WP_ADMIN_USER" ] || [ -z "$WP_ADMIN_PASSWORD" ] || [ -z "$DOMAIN" ] ; then
   echo -e "\n${RED}Error: .env file not filled${NC}"
   exit 1
 else
@@ -61,6 +63,7 @@ else
   echo -e "MYSQL_DATABASE=$MYSQL_DATABASE" >> $ENV_PATH
   echo -e "MYSQL_USER=$MYSQL_USER" >> $ENV_PATH
   echo -e "WP_ADMIN_USER=$WP_ADMIN_USER" >> $ENV_PATH
+  echo -e "WP_ADMIN_PASSWORD=$WP_ADMIN_PASSWORD" >> $ENV_PATH
   echo -e "DOMAIN=$DOMAIN" >> "$ENV_PATH"
 
 

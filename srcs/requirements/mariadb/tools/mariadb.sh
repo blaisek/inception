@@ -1,44 +1,29 @@
-#!/bin/sh
+# !/bin/bash
 
-mysql_install_db
+mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
-/etc/init.d/mysql start
+mkdir -p /run/mysql
+chown -R mysql:mysql /run/mysqld
+chown -R mysql:mysql /var/lib/mysql
 
-#Check if the database exists
+mysqld --user=mysql --datadir=/var/lib/mysql &
 
-if [ -d "/var/lib/mysql/$MYSQL_DATABASE" ]
-then 
+pid=$!
 
-	echo "Database already exists"
-else
+# Wait for MariaDB to become available
+until mysqladmin -u root -p${MARIADB_ROOT_PASSWORD} ping >/dev/null 2>&1; do
+	sleep 1
+done
 
-# Set root option so that connexion without root password is not possible
+# create wordpress database and user
+# modify user privileges on the database
+mysql -u root -p${MYSQL_ROOT_PASSWORD} -e "CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};"
+mysql -u root -p${MYSQL_ROOT_PASSWORD} -e "CREATE USER IF NOT EXISTS '${MYSQL_USER}' IDENTIFIED BY '${MYSQL_PASSWORD}';"
+mysql -u root -p${MYSQL_ROOT_PASSWORD} -e "GRANT ALL PRIVILEGES ON *.* TO '${MYSQL_USER}';"
+mysql -u root -p${MYSQL_ROOT_PASSWORD} -e "FLUSH PRIVILEGES;"
+mysql -u root -p${MYSQL_ROOT_PASSWORD} -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';"
 
-mysql_secure_installation << _EOF_
-
-Y
-root4life
-root4life
-Y
-n
-Y
-Y
-_EOF_
-
-#Add a root user on 127.0.0.1 to allow remote connexion 
-#Flush privileges allow to your sql tables to be updated automatically when you modify it
-#mysql -uroot launch mysql command line client
-echo "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD'; FLUSH PRIVILEGES;" | mysql -uroot
-
-#Create database and user in the database for wordpress
-
-echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE; GRANT ALL ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD'; FLUSH PRIVILEGES;" | mysql -u root
-
-#Import database in the mysql command line
-mysql -uroot -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < /usr/local/bin/wordpress.sql
-
-fi
-
-/etc/init.d/mysql stop
-
-exec "$@"
+# kill and restart database
+kill "$pid"
+wait "$pid"
+exec mysqld --user=mysql
