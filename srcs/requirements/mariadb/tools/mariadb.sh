@@ -23,7 +23,7 @@ mysql -u root -p${MYSQL_ROOT_PASSWORD} -e "GRANT ALL PRIVILEGES ON *.* TO '${MYS
 mysql -u root -p${MYSQL_ROOT_PASSWORD} -e "FLUSH PRIVILEGES;"
 mysql -u root -p${MYSQL_ROOT_PASSWORD} -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';"
 
-# kill and restart database
-kill "$pid"
-wait "$pid"
-exec mysqld --user=${MYSQL_USER}
+# You might want to add an infinite loop to keep the script running
+while true; do
+    sleep 3600 # Sleep for an hour, or any desired interval
+done
