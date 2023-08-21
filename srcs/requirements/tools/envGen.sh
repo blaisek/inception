@@ -4,13 +4,11 @@
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
-BLUE='\033[0;34m'
 GREY='\033[1;37m'
 NC='\033[0m'
 
 # Variables
 BASEDIR=./srcs/
-VOLUME_DIR=/home/btchiman/data
 ENV_PATH=$BASEDIR.env
 DOMAIN=btchiman.42.fr
 
@@ -21,22 +19,7 @@ function ctrl_c() {
   exit 1
 }
 
-# Check if volume directory exists
-if [ ! -d "$VOLUME_DIR" ]; then
-  echo -e "${YELLOW}Volume directory does not exist${NC}"
-  # ask if user wants to create it
-  read -p "Do you want to create it? [y/n] " -n 1 -r
-  # if yes, create it
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo -e "\n\nCreating volume directory"
-    sudo mkdir -p $VOLUME_DIR/mariadb
-    sudo mkdir -p $VOLUME_DIR/wordpress
-  # if no, exit
-  else
-    echo -e "\n${RED}Exiting${NC}"
-    exit 1
-  fi
-fi
+
 
 # Check if .env file exists in project
 if [ -f "$ENV_PATH" ]; then
