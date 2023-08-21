@@ -8,7 +8,7 @@ RUN apt-get install mariadb-server -yq
 RUN apt-get install iputils-ping -yq
 
 RUN mkdir -p /run/mysqld /var/lib/mysql
-COPY ./conf/custom.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY ./conf/maria.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
 COPY tools/mariadb.sh .
 RUN chmod +x mariadb.sh
