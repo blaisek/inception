@@ -19,16 +19,22 @@
 
 # Commands 💻
 
-## how to build create env variables create permanent data add host  and run
+## how to create env variables create permanent data add host build run stop containers restart stop and remove images
 
 ```sh
 $ make
 ```
 
-## how to create env variables and create permanent data
+## how to create env variables
 
 ```sh
 $ make env
+```
+
+## how to create permanent data
+
+```sh
+$ make vol
 ```
 
 ## how to add host to /etc/hosts
@@ -55,7 +61,7 @@ $ make down
 $ make re
 ```
 
-## how to stop and remove
+## how to stop and remove images
 
 ```sh
 $ make clean

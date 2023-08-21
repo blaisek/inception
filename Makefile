@@ -50,4 +50,4 @@ clean: down
 	@docker volume rm $$(docker volume ls -q)
 
 
-	.PHONY: all up re down clean env
+	.PHONY: all up re down clean env vol host
