@@ -82,7 +82,8 @@ srcs
     │	└── Dockerfile
     ├── tools # Tools scritps
     │	├── addHost.sh # Add hosts to /etc/hosts
-    │	└── envGen.sh # Generate .env file
+    │	├── envGen.sh # Generate .env file
+    │   └── volGen.sh # Generate permanent data
     └── wordpress # Wordpress image
         ├── conf
       	│     └── www.conf # PHP configuration file
