@@ -14,7 +14,7 @@ RUN apt-get install vim -yq
 RUN apt-get install iputils-ping -yq
 
 COPY /conf/www.conf /etc/php/7.4/fpm/pool.d
-COPY /tools/wpinit.sh .
+COPY /tools/create_wordpress.sh .
 
 RUN chmod +x create_wordpress.sh
 
