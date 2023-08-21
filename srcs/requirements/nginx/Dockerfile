@@ -1,24 +1,23 @@
 FROM debian:11.7
 
-# Install all the required programs
-RUN apt-get update && \
-    apt-get install -y nginx openssl
+SHELL ["/bin/bash", "-c"]
 
-# Create directory for nginx SSL and generate a self-signed SSL certificate
-RUN mkdir /etc/nginx/ssl && \
-    openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
-    -out /etc/nginx/ssl/btchiman.crt \
-    -keyout /etc/nginx/ssl/btchiman.key \
-    -subj "/C=CH/ST=Lausanne/L=Lausanne/O=42 School/OU=btchiman/CN=btchiman"
+RUN apt-get update -yq
+RUN apt-get install nginx -yq
+RUN apt-get install openssl -yq
+RUN apt-get install iputils-ping -yq
 
-# Copy nginx configuration file
-COPY ./conf/nginx.conf /etc/nginx/conf.d
+RUN mkdir -p /etc/ssl/private/
+RUN mkdir -p /etc/ssl/certs/
+RUN mkdir -p /var/www/html/
+RUN mkdir -p /logs/
 
-# Create directory for nginx to store runtime files
-RUN mkdir -p /run/nginx
+RUN openssl req -x509 \
+	-sha256 -days 365 \
+	-nodes \
+	-newkey rsa:2048 -keyout /etc/ssl/private/btchiman.42lausanne.ch.key \
+	-subj "/CN=btchiman.42lausanne.ch/C=CH/ST=FR/L=Remaufens" -out /etc/ssl/certs/btchiman.42lausanne.ch.crt
 
-# Expose only port 443 for SSL
-EXPOSE 443
+COPY /conf/nginx.conf /etc/nginx/nginx.conf
 
-# Start nginx
 CMD ["nginx", "-g", "daemon off;"]

@@ -1,33 +1,18 @@
 FROM debian:11.7
 
-# Install mariadb and remove lists of downloaded packages
-# to save space in the final image.
-RUN apt-get update && \
-    apt-get install -y mariadb-server \
-                       mariadb-client \
-                       vim && \
-    rm -rf /var/lib/apt/lists/*
+SHELL ["/bin/bash", "-c"]
 
-# Allow to run the daemon of MySQL
-# Purge and re-create /var/lib/mysql with appropriate ownership
-# Ensure that /var/run/mysqld (used for socket and lock files)
-# is writable regardless of the UID our mysqld instance ends up having at runtime
-RUN mkdir -p /var/run/mysqld && \
-    chown -R mysql:mysql /var/run/mysqld && \
-    chmod 777 /var/run/mysqld
+RUN apt-get update -yq
+RUN apt-get install systemctl -yq
+RUN apt-get install mariadb-server -yq
+RUN apt-get install iputils-ping -yq
 
-EXPOSE 3306
+RUN mkdir -p /run/mysqld /var/lib/mysql
+COPY ./conf/custom.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-# Copy of the .sh and .sql files into the /bin directory of the container
-# to be able to run the program
-# Give the right to execute + launch the .sh
-COPY ./tools/mariadb.sh /usr/local/bin/
-COPY ./conf/maria.cnf /etc/mysql/mariadb.conf.d/
-RUN chmod +x /usr/local/bin/mariadb.sh
-#RUN chmod +x /usr/local/bin/wordpress.sql
+COPY tools/mariadb.sh .
+RUN chmod +x mariadb.sh
 
-ENTRYPOINT [ "/usr/local/bin/mariadb.sh" ]
+# EXPOSE 3306
 
-# Command to launch mariadb and enable the database
-# to listen globally - this can also be put in a mysqldump.cnf file
-CMD ["mysqld", "--bind-address=0.0.0.0"]
+CMD ["bash", "/mariadb.sh"]
