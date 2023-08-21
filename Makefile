@@ -39,8 +39,7 @@ down:
 	@echo "${RED}Stoping containers.." 
 	@docker compose -f $(DOCKERCOMPOSE) down #--remove-orphans --rmi all
 
-re: 
-	@docker compose -f $(DOCKERCOMPOSE) restart
+re: down up
 	@echo "${CYAN}Restarted.."
 
 clean: down
