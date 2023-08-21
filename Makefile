@@ -15,6 +15,9 @@ all:
 	@echo "${GREEN} make vol - Create volumes"
 	@echo "${GREEN} make host - Add domain to /etc/hosts"
 	@echo "${GREEN} make up - build and Start containers"
+	@echo "${GREEN} make down - Stop containers"
+	@echo "${GREEN} make re - Restart containers"
+	@echo "${GREEN} make clean - Remove images and volumes"
 
 up:
 	@echo "${GREEN}Starting containers.."
