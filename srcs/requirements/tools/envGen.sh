@@ -53,7 +53,7 @@ echo -e "\n${GREY}Enter your wp user email:${NC}"
 read -r WP_EMAIL
 echo -e "\n${GREY}Enter your wp admin user:${NC}"
 read -r WP_ADMIN_USER
-echo -e "\n$(GREY)Enter your wp admin password:${NC}"
+echo -e "\n${GREY}Enter your wp admin password:${NC}"
 read -r WP_ADMIN_PASSWORD
 echo -e "\n${GREY}Enter your wp admin email:${NC}"
 read -r WP_ADMIN_EMAIL
@@ -62,8 +62,8 @@ read -r WP_ADMIN_EMAIL
 # if .env not filled exit
 if [ -z "$MYSQL_ROOT_PASSWORD" ] || [ -z "$MYSQL_PASSWORD" ] || [ -z "$MYSQL_DATABASE" ] || [ -z "$MYSQL_USER" ] ||
  [ -z "$WP_ADMIN_USER" ] || [ -z "$WP_ADMIN_PASSWORD" ] || [ -z "$DOMAIN" ] || [ -z "$WP_USER" ] ||
-  # shellcheck disable=SC1073
-  [ -z "$WP_PASSWORD"] || [ -z "$WP_EMAIL"] || [-z "$WP_ADMIN_EMAIL" ] ; then
+  [ -z "$WP_PASSWORD" ] || [ -z "$WP_EMAIL" ] || [ -z "$WP_ADMIN_EMAIL" ] ; then
+
   echo -e "\n${RED}Error: .env file not filled${NC}"
   exit 1
 else
