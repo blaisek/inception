@@ -12,7 +12,7 @@ DOCKERCOMPOSE = ./srcs/docker-compose.yml
 
 all:
 	@echo "${GREEN} make env - Create/Overwrite .env file"
-	@echo "${GREEN} make vol - Create volumes"
+	@echo "${GREEN} make vol - Create volumes for data persistence " "if OS is not linux you need to change device path in docker-compose.yml"
 	@echo "${GREEN} make host - Add domain to /etc/hosts"
 	@echo "${GREEN} make up - build and Start containers"
 	@echo "${GREEN} make down - Stop and remove containers"

@@ -6,7 +6,22 @@ YELLOW='\033[0;33m'
 NC='\033[0m'
 
 # Variables
-VOLUME_DIR=/home/btchiman/data
+VOLUME_DIR=""
+
+# Check the operating system type
+if [[ "$OSTYPE" == "linux"* ]]; then
+  # Linux
+  VOLUME_DIR="/home/btchiman/data"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  # macOS
+  VOLUME_DIR="/Users/btchiman/data"
+elif [[ "$OSTYPE" == "msys"* ]]; then
+  # Windows
+  VOLUME_DIR="C:/Users/btchiman/data"
+else
+  echo -e "${RED}Unsupported operating system${NC}"
+  exit 1
+fi
 
 # Catch if ctrl+c is pressed
 trap ctrl_c INT
