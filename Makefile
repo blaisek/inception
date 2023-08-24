@@ -15,9 +15,9 @@ all:
 	@echo "${GREEN} make vol - Create volumes"
 	@echo "${GREEN} make host - Add domain to /etc/hosts"
 	@echo "${GREEN} make up - build and Start containers"
-	@echo "${GREEN} make down - Stop containers"
+	@echo "${GREEN} make down - Stop and remove containers"
 	@echo "${GREEN} make re - Restart containers"
-	@echo "${GREEN} make clean - Remove images and volumes"
+	@echo "${GREEN} make clean - Remove containers images volumes and networks"
 
 up:
 	@echo "${GREEN}Starting containers.."
@@ -27,7 +27,7 @@ env: ## Create/Overwrite .env file
 	@chmod +x $(ENVSCRIPT)
 	@bash $(ENVSCRIPT)
 
-vol: ## Create/Overwrite .env file
+vol: ## Create volume
 	@chmod +x $(VOLSCRIPT)
 	@bash $(VOLSCRIPT)
 
@@ -37,16 +37,20 @@ host: ## Add domain to /etc/hosts
 
 down:
 	@echo "${RED}Stoping containers.." 
-	@docker compose -f $(DOCKERCOMPOSE) down #--remove-orphans --rmi all
+	@docker stop $(docker ps -qa)
+	@echo "${RED}Removing containers.."
+	@docker rm $(docker ps -qa)
 
 re: down up
 	@echo "${CYAN}Restarted.."
 
 clean: down
 	@echo "${ORANGE}Removing images.."
-	@docker rmi -f $$(docker images -q)
+	@docker rmi -f $(docker images -qa)
 	@echo "${ORANGE}Removing volumes.."
-	@docker volume rm $$(docker volume ls -q)
+	@docker volume rm $(docker volume ls -q)
+	@echo "${ORANGE} Removing networks.."
+	@docker network rm $(docker network ls -q) 2>/dev/null
 
 
 	.PHONY: all up re down clean env vol host

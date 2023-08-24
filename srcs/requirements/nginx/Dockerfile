@@ -16,7 +16,7 @@ RUN openssl req -x509 \
 	-sha256 -days 365 \
 	-nodes \
 	-newkey rsa:2048 -keyout /etc/ssl/private/btchiman.42lausanne.ch.key \
-	-subj "/CN=btchiman.42lausanne.ch/C=CH/ST=FR/L=Remaufens" -out /etc/ssl/certs/btchiman.42lausanne.ch.crt
+	-subj "/CN=btchiman.42lausanne.ch/C=CH/ST=GE/L=GENEVA" -out /etc/ssl/certs/btchiman.42lausanne.ch.crt
 
 COPY /conf/nginx.conf /etc/nginx/nginx.conf
 
