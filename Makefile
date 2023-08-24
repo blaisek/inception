@@ -15,9 +15,9 @@ all:
 	@echo "${GREEN} make vol - Create volumes for data persistence " "if OS is not linux you need to change device path in docker-compose.yml"
 	@echo "${GREEN} make host - Add domain to /etc/hosts"
 	@echo "${GREEN} make up - build and Start containers"
-	@echo "${GREEN} make down - Stop and remove containers"
+	@echo "${GREEN} make stop - Stop containers"
 	@echo "${GREEN} make re - Restart containers"
-	@echo "${GREEN} make clean - Remove containers images volumes and networks"
+	@echo "${GREEN} make clean - stop and Remove containers images volumes and networks"
 
 up:
 	@echo "${GREEN}Starting containers.."
@@ -35,22 +35,16 @@ host: ## Add domain to /etc/hosts
 	@chmod +x $(ADDHOSTSCRIPT)
 	@bash $(ADDHOSTSCRIPT)
 
-down:
-	@echo "${RED}Stoping containers.." 
-	@docker stop $(docker ps -qa)
-	@echo "${RED}Removing containers.."
-	@docker rm $(docker ps -qa)
+stop:
+	@echo "${RED}Stoping containers.."
+	@docker compose -f $(DOCKERCOMPOSE) stop
 
-re: down up
+re: stop up
 	@echo "${CYAN}Restarted.."
 
-clean: down
-	@echo "${ORANGE}Removing images.."
-	@docker rmi -f $(docker images -qa)
-	@echo "${ORANGE}Removing volumes.."
-	@docker volume rm $(docker volume ls -q)
-	@echo "${ORANGE} Removing networks.."
-	@docker network rm $(docker network ls -q) 2>/dev/null
+clean:
+	@echo "${ORANGE} Stoping and Removing containers images volumes networks.."
+	@docker compose -f $(DOCKERCOMPOSE) down --rmi all -v --remove-orphans
 
 
 	.PHONY: all up re down clean env vol host
