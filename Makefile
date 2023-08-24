@@ -15,7 +15,7 @@ all:
 	@echo "${GREEN} make vol - Create volumes for data persistence " "if OS is not linux you need to change device path in docker-compose.yml"
 	@echo "${GREEN} make host - Add domain to /etc/hosts"
 	@echo "${GREEN} make up - build and Start containers"
-	@echo "${GREEN} make stop - Stop containers"
+	@echo "${GREEN} make stop - Stop and remove containers"
 	@echo "${GREEN} make re - Restart containers"
 	@echo "${GREEN} make clean - stop and Remove containers images volumes and networks"
 
@@ -36,8 +36,10 @@ host: ## Add domain to /etc/hosts
 	@bash $(ADDHOSTSCRIPT)
 
 stop:
-	@echo "${RED}Stoping containers.."
+	@echo "${RED}Stoping and removing containers.."
 	@docker compose -f $(DOCKERCOMPOSE) stop
+	@docker compose -f $(DOCKERCOMPOSE) rm
+
 
 re: stop up
 	@echo "${CYAN}Restarted.."
@@ -47,4 +49,4 @@ clean:
 	@docker compose -f $(DOCKERCOMPOSE) down --rmi all -v --remove-orphans
 
 
-	.PHONY: all up re down clean env vol host
+	.PHONY: all up re stop clean env vol host
