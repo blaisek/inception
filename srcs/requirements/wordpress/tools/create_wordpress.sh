@@ -11,6 +11,19 @@ mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --allow-root
 
+# Affichage des valeurs des variables
+echo "MYSQL_DATABASE=${MYSQL_DATABASE}"
+echo "MYSQL_USER=${MYSQL_USER}"
+echo "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+echo "MYSQL_HOST=${MYSQL_HOST}"
+echo "DOMAIN=${DOMAIN}"
+echo "WP_ADMIN_USER=${WP_ADMIN_USER}"
+echo "WP_ADMIN_PASSWORD=${WP_ADMIN_PASSWORD}"
+echo "WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL}"
+echo "WP_USER=${WP_USER}"
+echo "WP_PASSWORD=${WP_PASSWORD}"
+echo "WP_EMAIL=${WP_EMAIL}"
+
 # Crée le fichier de configuration wp-config.php
 wp core config \
 	--dbname=${MYSQL_DATABASE} \
