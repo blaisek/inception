@@ -9,6 +9,7 @@ chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --allow-root
+wp config create --allow-root
 
 wp core config \
 	--dbname=$MYSQL_DATABASE \
