@@ -9,13 +9,13 @@ chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --allow-root
-wp config create --dbname=$MYSQL_DATABAS --dbuser=MYSQL_USER --dbpass=MYSQL_ROOT_PASSWORD --dbhost=mariadb --allow-root
+wp config create --dbname=db_name --dbuser=db_user --dbpass=db_password --dbhost=mariadb --allow-root
 
 wp config set "WP_REDIS_HOST" "redis" --allow-root
 wp config set "WP_REDIS_PORT" "6379" --allow-root
 
 wp core install \
-  --url=$DOMAIN \
+  --url='https://btchiman.42.fr' \
   --title='ft_wordpress' \
 	--admin_name=$WP_ADMIN_USER \
 	--admin_password=$WP_ADMIN_PASSWORD \
