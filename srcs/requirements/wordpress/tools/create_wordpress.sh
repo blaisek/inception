@@ -10,7 +10,14 @@ chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --allow-root
-wp config create --dbname=${MYSQL_DATABASE} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_ROOT_PASSWORD} --dbhost=${MYSQL_DATABASE} --allow-root
+
+# Crée le fichier de configuration wp-config.php
+wp config create \
+	--dbname=${MYSQL_DATABASE} \
+	--dbuser=${MYSQL_USER} \
+	--dbpass=${MYSQL_PASSWORD} \
+	--dbhost=${MYSQL_HOST} \
+	--allow-root
 
 wp config set "WP_REDIS_HOST" "redis" --allow-root
 wp config set "WP_REDIS_PORT" "6379" --allow-root

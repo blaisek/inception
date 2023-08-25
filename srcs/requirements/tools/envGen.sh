@@ -11,6 +11,7 @@ NC='\033[0m'
 BASEDIR=./srcs/
 ENV_PATH=$BASEDIR.env
 DOMAIN=btchiman.42.fr
+MYSQL_HOST=maria_db
 
 # Catch if ctrl+c is pressed
 trap ctrl_c INT
@@ -71,6 +72,7 @@ else
   echo -e "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> $ENV_PATH
   echo -e "MYSQL_PASSWORD=$MYSQL_PASSWORD" >> $ENV_PATH
   echo -e "MYSQL_DATABASE=$MYSQL_DATABASE" >> $ENV_PATH
+  echo -e "MYSQL_HOST=$MYSQL_HOST" >> $ENV_PATH
   echo -e "MYSQL_USER=$MYSQL_USER" >> $ENV_PATH
   echo -e "WP_ADMIN_USER=$WP_ADMIN_USER" >> $ENV_PATH
   echo -e "WP_ADMIN_PASSWORD=$WP_ADMIN_PASSWORD" >> $ENV_PATH
