@@ -12,7 +12,7 @@ mv wp-cli.phar /usr/local/bin/wp
 wp core download --allow-root
 
 # Crée le fichier de configuration wp-config.php
-wp config create \
+wp core config \
 	--dbname=${MYSQL_DATABASE} \
 	--dbuser=${MYSQL_USER} \
 	--dbpass=${MYSQL_PASSWORD} \
