@@ -1,12 +1,14 @@
 #!/bin/bash
 
+source /srcs/.env
+
 mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
 mkdir -p /run/mysql
 chown -R mysql:mysql /run/mysqld
 chown -R mysql:mysql /var/lib/mysql
 
-mysqld --user=mysql --datadir=/var/lib/mysql --dbhost=mariadb &
+mysqld --user=${MYSQL_USER} --datadir=/var/lib/mysql --dbhost=${MYSQL_DATABASE} &
 
 pid=$!
 
@@ -26,4 +28,4 @@ mysql -u root -p${MYSQL_ROOT_PASSWORD} -e "ALTER USER 'root'@'localhost' IDENTIF
 # kill and restart database
 kill "$pid"
 wait "$pid"
-exec mysqld --user=mysql
+exec mysqld --user=${MYSQL_USER}
