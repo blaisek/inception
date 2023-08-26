@@ -10,7 +10,7 @@ services:
   mariadb:
     build:
       context: ./requirements/mariadb
-    container_name: mariadb
+    container_name: mariadb_container
     restart: always
     env_file: .env
     volumes:
@@ -24,13 +24,13 @@ services:
       context: ./requirements/wordpress
       args:
         DOMAIN: ${DOMAIN}
-    container_name: wordpress
+    container_name: wordpress_container
     restart: always
     env_file: .env
     volumes:
       - wordpress_data:/var/www/${DOMAIN}
     depends_on:
-      - mariadb
+      - mariadb_container
     networks:
       - inception
 
@@ -40,7 +40,7 @@ services:
       context: ./requirements/nginx
       args:
         DOMAIN: ${DOMAIN}
-    container_name: nginx
+    container_name: nginx_container
     restart: always
     env_file: .env
     ports:
@@ -48,7 +48,7 @@ services:
     volumes:
       - wordpress_data:/var/www/${DOMAIN}
     depends_on:
-      - wordpress
+      - wordpress_container
     networks:
       - inception
 
