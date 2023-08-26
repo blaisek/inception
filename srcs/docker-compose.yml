@@ -1,67 +1,64 @@
-version: '3.9'
+version: "3.9"
 
 networks:
   inception:
     driver: bridge
 
+volumes:
+  mariadb_v:
+    name: mariadb_v
+    driver: local
+    driver_opts:
+      device: /home/btchiman/data/mariadb
+      type: none
+      o: bind
+  wordpress_v:
+    name: wordpress_v
+    driver: local
+    driver_opts:
+      device: /home/btchiman/data/wordpress/
+      type: none
+      o: bind
+
 services:
-
-  # DATABASE
-  mariadb:
-    build:
-      context: ./requirements/mariadb
-    container_name: mariadb_container
-    restart: always
-    env_file: .env
-    volumes:
-      - mariadb:/var/lib/mysql
-    networks:
-      - inception
-
-  # WORDPRESS
-  wordpress:
-    build:
-      context: ./requirements/wordpress
-      args:
-        DOMAIN: ${DOMAIN}
-    container_name: wordpress_container
-    restart: always
-    env_file: .env
-    volumes:
-      - wordpress_data:/var/www/${DOMAIN}
-    depends_on:
-      - mariadb
-    networks:
-      - inception
-
-  # SERVER
   nginx:
-    build:
-      context: ./requirements/nginx
-      args:
-        DOMAIN: ${DOMAIN}
-    container_name: nginx_container
-    restart: always
-    env_file: .env
+    build: ./requirements/nginx
+    image: nginx_i
+    container_name: nginx_c
     ports:
       - "443:443"
-    volumes:
-      - wordpress_data:/var/www/${DOMAIN}
-    depends_on:
-      - wordpress
+    env_file:
+      - .env
     networks:
       - inception
+    restart: on-failure
+    volumes:
+      - wordpress_v:/var/www/html
+    depends_on:
+      - wordpress
 
-volumes:
   mariadb:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/btchiman/data/mariadb
-  wordpress_data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/btchiman/data/wordpress
+    build: ./requirements/mariadb
+    image: mariadb_i
+    container_name: mariadb_c
+    env_file:
+      - .env
+    networks:
+      - inception
+    volumes:
+      - mariadb_v:/var/lib/mysql
+    restart: on-failure
+
+  wordpress:
+    build: ./requirements/wordpress
+    image: wordpress_i
+    container_name: wordpress_c
+    env_file:
+      - .env
+    networks:
+      - inception
+    volumes:
+      - wordpress_v:/var/www/html
+    restart: on-failure
+    depends_on:
+      - mariadb
