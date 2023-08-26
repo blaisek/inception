@@ -13,6 +13,5 @@ COPY ./conf/maria.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY tools/mariadb.sh .
 RUN chmod +x mariadb.sh
 
-EXPOSE 3306
 
-CMD ["bash", "/mariadb.sh"]
+CMD ["bash", "mariadb.sh"]

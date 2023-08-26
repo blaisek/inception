@@ -11,7 +11,7 @@ NC='\033[0m'
 BASEDIR=./srcs/
 ENV_PATH=$BASEDIR.env
 DOMAIN=btchiman.42.fr
-MYSQL_HOST=maria_db
+MARIADB_HOST=mariadb
 
 # Catch if ctrl+c is pressed
 trap ctrl_c INT
@@ -37,15 +37,14 @@ if [ -f "$ENV_PATH" ]; then
 fi
 
 # Fill .env variables with prompt input
-
-echo -e "\n${GREY}Enter your database user name:${NC}"
-read -r MYSQL_USER
-echo -e "\n${GREY}Enter your database user password:${NC}"
-read -r MYSQL_PASSWORD
 echo -e "\n${GREY}Enter your database name:${NC}"
-read -r MYSQL_DATABASE
+read -r MARIADB_NAME
+echo -e "\n${GREY}Enter your database user name:${NC}"
+read -r MARIADB_USER
+echo -e "\n${GREY}Enter your database user password:${NC}"
+read -r MARIADB_PASSWORD
 echo -e "\n${GREY}Enter your database root password:${NC}"
-read -r MYSQL_ROOT_PASSWORD
+read -r MARIADB_ROOT_PASSWORD
 echo -e "\n${GREY}Enter your wp user name:${NC}"
 read -r WP_USER
 echo -e "\n${GREY}Enter your wp user password:${NC}"
@@ -61,7 +60,7 @@ read -r WP_ADMIN_EMAIL
 
 
 # if .env not filled exit
-if [ -z "$MYSQL_ROOT_PASSWORD" ] || [ -z "$MYSQL_PASSWORD" ] || [ -z "$MYSQL_DATABASE" ] || [ -z "$MYSQL_USER" ] ||
+if [ -z "$MARIADB_ROOT_PASSWORD" ] || [ -z "$MARIADB_PASSWORD" ] || [ -z "$MARIADB_NAME" ] || [ -z "$MARIADB_USER" ] ||
  [ -z "$WP_ADMIN_USER" ] || [ -z "$WP_ADMIN_PASSWORD" ] || [ -z "$DOMAIN" ] || [ -z "$WP_USER" ] ||
   [ -z "$WP_PASSWORD" ] || [ -z "$WP_EMAIL" ] || [ -z "$WP_ADMIN_EMAIL" ] ; then
 
@@ -69,11 +68,11 @@ if [ -z "$MYSQL_ROOT_PASSWORD" ] || [ -z "$MYSQL_PASSWORD" ] || [ -z "$MYSQL_DAT
   exit 1
 else
   # if .env filled, create .env file
-  echo -e "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> $ENV_PATH
-  echo -e "MYSQL_PASSWORD=$MYSQL_PASSWORD" >> $ENV_PATH
-  echo -e "MYSQL_DATABASE=$MYSQL_DATABASE" >> $ENV_PATH
-  echo -e "MYSQL_HOST=$MYSQL_HOST" >> $ENV_PATH
-  echo -e "MYSQL_USER=$MYSQL_USER" >> $ENV_PATH
+  echo -e "MARIADB_ROOT_PASSWORD=$MARIADB_ROOT_PASSWORD" >> $ENV_PATH
+  echo -e "MARIADB_PASSWORD=$MARIADB_PASSWORD" >> $ENV_PATH
+  echo -e "MARIADB_NAME=$MARIADB_NAME" >> $ENV_PATH
+  echo -e "MARIADB_HOST=$MARIADB_HOST" >> $ENV_PATH
+  echo -e "MARIADB_USER=$MARIADB_USER" >> $ENV_PATH
   echo -e "WP_ADMIN_USER=$WP_ADMIN_USER" >> $ENV_PATH
   echo -e "WP_ADMIN_PASSWORD=$WP_ADMIN_PASSWORD" >> $ENV_PATH
   echo -e "DOMAIN=$DOMAIN" >> "$ENV_PATH"

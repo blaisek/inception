@@ -12,10 +12,10 @@ mv wp-cli.phar /usr/local/bin/wp
 wp core download --allow-root
 
 # Affichage des valeurs des variables
-echo "MYSQL_DATABASE=$MYSQL_DATABASE"
-echo "MYSQL_USER=$MYSQL_USER"
-echo "MYSQL_PASSWORD=$MYSQL_PASSWORD"
-echo "MYSQL_HOST=$MYSQL_HOST"
+echo "MARIADB_NAME=$MARIADB_NAME"
+echo "MARIADB_USER=$MARIADB_USER"
+echo "MARIADB_PASSWORD=$MARIADB_PASSWORD"
+echo "MARIADB_HOST=$MARIADB_HOST"
 echo "DOMAIN=$DOMAIN"
 echo "WP_ADMIN_USER=$WP_ADMIN_USER"
 echo "WP_ADMIN_PASSWORD=$WP_ADMIN_PASSWORD"
@@ -26,10 +26,10 @@ echo "WP_EMAIL=$WP_EMAIL"
 
 # Crée le fichier de configuration wp-config.php
 wp core config \
-	--dbname=$MYSQL_DATABASE \
-	--dbuser=$MYSQL_USER \
-	--dbpass=$MYSQL_PASSWORD \
-	--dbhost=$MYSQL_HOST \
+	--dbname=$MARIADB_NAME \
+	--dbuser=$MARIADB_USER \
+	--dbpass=$MARIADB_PASSWORD \
+	--dbhost=$MARIADB_HOST \
 	--allow-root
 
 wp config set "WP_REDIS_HOST" "redis" --allow-root
