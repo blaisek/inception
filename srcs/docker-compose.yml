@@ -30,7 +30,7 @@ services:
     volumes:
       - wordpress_data:/var/www/${DOMAIN}
     depends_on:
-      - mariadb_container
+      - mariadb
     networks:
       - inception
 
@@ -48,7 +48,7 @@ services:
     volumes:
       - wordpress_data:/var/www/${DOMAIN}
     depends_on:
-      - wordpress_container
+      - wordpress
     networks:
       - inception
 
