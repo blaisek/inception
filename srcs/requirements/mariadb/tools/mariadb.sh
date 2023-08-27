@@ -23,12 +23,6 @@ mysql -u root -p$MARIADB_ROOT_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO '$MARI
 mysql -u root -p$MARIADB_ROOT_PASSWORD -e "FLUSH PRIVILEGES;"
 mysql -u root -p$MARIADB_ROOT_PASSWORD -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MARIADB_ROOT_PASSWORD';"
 
-# affiche le contenu des variables d'environnement
-echo -e "\n${GREY}MARIADB_ROOT_PASSWORD=$MARIADB_ROOT_PASSWORD${NC}"
-echo -e "\n${GREY}MARIADB_PASSWORD=$MARIADB_PASSWORD${NC}"
-echo -e "\n${GREY}MARIADB_NAME=$MARIADB_NAME${NC}"
-echo -e "\n${GREY}MARIADB_USER=$MARIADB_USER${NC}"
-
 # kill and restart database
 kill "$pid"
 wait "$pid"
