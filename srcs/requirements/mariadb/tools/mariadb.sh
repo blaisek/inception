@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mysql_install_db --user=$MARIADB_USER --datadir=/var/lib/mysql
+mysql_install_db  --datadir=/var/lib/mysql
 
 mkdir -p /run/mysql
 chown -R mysql:mysql /run/mysqld
 chown -R mysql:mysql /var/lib/mysql
 
-mysqld --user=$MARIADB_USER --datadir=/var/lib/mysql &
+mysqld  --datadir=/var/lib/mysql &
 
 pid=$!
 
