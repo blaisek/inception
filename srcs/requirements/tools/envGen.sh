@@ -44,7 +44,7 @@ echo -e "\n${GREY}Enter your database user name:${NC}"
 read -r MARIADB_USER
 echo -e "\n${GREY}Enter your database user password:${NC}"
 read -r MARIADB_PASSWORD
-echo -e "\n${GREY}Enter your database root password:${NC}"
+echo -e "\n${GREY}Enter your root password for localhost:${NC}"
 read -r MARIADB_ROOT_PASSWORD
 echo -e "\n${GREY}Enter your wp user name:${NC}"
 read -r WP_USER
