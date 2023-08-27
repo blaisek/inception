@@ -32,12 +32,9 @@ wp core config \
 	--dbhost=$MARIADB_HOST \
 	--allow-root
 
-wp config set "WP_REDIS_HOST" "redis" --allow-root
-wp config set "WP_REDIS_PORT" "6379" --allow-root
-
 wp core install \
   --url=$DOMAIN \
-  --title='ft_wordpress' \
+  --title=$WP_TITLE \
 	--admin_name=$WP_ADMIN_USER \
 	--admin_password=$WP_ADMIN_PASSWORD \
 	--admin_email=$WP_ADMIN_EMAIL \
@@ -52,5 +49,4 @@ wp user create $WP_USER \
 wp plugin install redis-cache --activate --allow-root
 
 mkdir -p /run/php/
-wp redis enable --allow-root
 /usr/sbin/php-fpm7.4 -F
