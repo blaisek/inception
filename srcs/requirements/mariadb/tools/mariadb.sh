@@ -1,8 +1,6 @@
 #!/bin/bash
 
-source ./srcs/.env
-
-mysql_install_db --user=mysql --datadir=/var/lib/mysql
+mysql_install_db --user=$MARIADB_USER --datadir=/var/lib/mysql
 
 mkdir -p /run/mysql
 chown -R mysql:mysql /run/mysqld

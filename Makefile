@@ -49,4 +49,4 @@ clean:
 	@docker compose -f $(DOCKERCOMPOSE) down --rmi all -v --remove-orphans
 
 
-	.PHONY: all up re stop clean env vol host
+.PHONY: all up re stop clean env vol host

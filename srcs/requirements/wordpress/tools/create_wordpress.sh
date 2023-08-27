@@ -1,6 +1,5 @@
 #!/bin/bash
 
-source ./srcs/.env
 mkdir -p /var/www/html
 cd /var/www/html
 
@@ -10,19 +9,6 @@ chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --allow-root
-
-# Affichage des valeurs des variables
-echo "MARIADB_NAME=$MARIADB_NAME"
-echo "MARIADB_USER=$MARIADB_USER"
-echo "MARIADB_PASSWORD=$MARIADB_PASSWORD"
-echo "MARIADB_HOST=$MARIADB_HOST"
-echo "DOMAIN=$DOMAIN"
-echo "WP_ADMIN_USER=$WP_ADMIN_USER"
-echo "WP_ADMIN_PASSWORD=$WP_ADMIN_PASSWORD"
-echo "WP_ADMIN_EMAIL=$WP_ADMIN_EMAIL"
-echo "WP_USER=$WP_USER"
-echo "WP_PASSWORD=$WP_PASSWORD"
-echo "WP_EMAIL=$WP_EMAIL"
 
 # Crée le fichier de configuration wp-config.php
 wp core config \
