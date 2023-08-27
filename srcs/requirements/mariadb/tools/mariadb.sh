@@ -26,4 +26,4 @@ mysql -u root -p$MARIADB_ROOT_PASSWORD -e "ALTER USER 'root'@'localhost' IDENTIF
 # kill and restart database
 kill "$pid"
 wait "$pid"
-exec mysqld --user=$MARIADB_USER
+exec mysqld --datadir=/var/lib/mysql

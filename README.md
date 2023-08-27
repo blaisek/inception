@@ -52,7 +52,7 @@ $ make up
 ## how to stop containers
 
 ```sh
-$ make down
+$ make stop
 ```
 
 ## how to restart
@@ -61,7 +61,7 @@ $ make down
 $ make re
 ```
 
-## how to stop and remove images
+## how to stop and remove containers images volumes and networks
 
 ```sh
 $ make clean
