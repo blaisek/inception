@@ -8,7 +8,7 @@ mkdir -p /run/mysql
 chown -R mysql:mysql /run/mysqld
 chown -R mysql:mysql /var/lib/mysql
 
-mysqld --user=$MARIADB_USER --datadir=/var/lib/mysql --dbhost=$MARIADB_HOST &
+mysqld --user=$MARIADB_USER --datadir=/var/lib/mysql &
 
 pid=$!
 

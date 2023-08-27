@@ -12,6 +12,7 @@ BASEDIR=./srcs/
 ENV_PATH=$BASEDIR.env
 DOMAIN=btchiman.42.fr
 MARIADB_HOST=mariadb
+WP_TITLE=42_wordpress
 
 # Catch if ctrl+c is pressed
 trap ctrl_c INT
@@ -80,6 +81,7 @@ else
   echo -e "WP_PASSWORD=$WP_PASSWORD" >> "$ENV_PATH"
   echo -e "WP_EMAIL=$WP_EMAIL" >> "$ENV_PATH"
   echo -e "WP_ADMIN_EMAIL=$WP_ADMIN_EMAIL" >> "$ENV_PATH"
+  echo -e "WP_TITLE=$WP_TITLE" >> "$ENV_PATH"
 
   # Success message
   echo -e "\n${GREEN}Success!${NC} .env file created"
