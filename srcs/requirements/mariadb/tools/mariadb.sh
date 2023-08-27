@@ -8,7 +8,7 @@ mkdir -p /run/mysql
 chown -R mysql:mysql /run/mysqld
 chown -R mysql:mysql /var/lib/mysql
 
-mysqld --user=$MYSQL_USER --datadir=/var/lib/mysql --dbhost=$MYSQL_HOST &
+mysqld --user=$MARIADB_USER --datadir=/var/lib/mysql --dbhost=$MARIADB_HOST &
 
 pid=$!
 
@@ -19,13 +19,13 @@ done
 
 # create wordpress database and user
 # modify user privileges on the database
-mysql -u root -p$MYSQL_ROOT_PASSWORD -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;"
-mysql -u root -p$MYSQL_ROOT_PASSWORD -e "CREATE USER IF NOT EXISTS '$MYSQL_USER' IDENTIFIED BY '$MYSQL_PASSWORD';"
-mysql -u root -p$MYSQL_ROOT_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER';"
-mysql -u root -p$MYSQL_ROOT_PASSWORD -e "FLUSH PRIVILEGES;"
-mysql -u root -p$MYSQL_ROOT_PASSWOR -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';"
+mysql -u root -p$MARIADB_ROOT_PASSWORD -e "CREATE DATABASE IF NOT EXISTS $MARIADB_NAME;"
+mysql -u root -p$MARIADB_ROOT_PASSWORD -e "CREATE USER IF NOT EXISTS '$MARIADB_USER' IDENTIFIED BY '$MARIADB_PASSWORD';"
+mysql -u root -p$MARIADB_ROOT_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO '$MARIADB_USER';"
+mysql -u root -p$MARIADB_ROOT_PASSWORD -e "FLUSH PRIVILEGES;"
+mysql -u root -p$MARIADB_ROOT_PASSWORD -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MARIADB_ROOT_PASSWORD';"
 
 # kill and restart database
 kill "$pid"
 wait "$pid"
-exec mysqld --user=$MYSQL_USER
+exec mysqld --user=$MARIADB_USER
