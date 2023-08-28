@@ -11,7 +11,7 @@ mysqld  --datadir=/var/lib/mysql &
 pid=$!
 
 # Wait for MariaDB to become available
-until mysqladmin -u root -p$MYSQL_ROOT_PASSWORD ping >/dev/null 2>&1; do
+until mysqladmin -u root -p$MARIADB_ROOT_PASSWORD ping >/dev/null 2>&1; do
     sleep 1
 done
 
