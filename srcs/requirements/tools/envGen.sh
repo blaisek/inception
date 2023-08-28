@@ -10,7 +10,7 @@
   # Variables
   BASEDIR=./srcs/
   ENV_PATH=$BASEDIR.env
-  DOMAIN=btchiman.42.fr
+  DOMAIN=https://www.btchiman.42.fr
   MARIADB_HOST=mariadb
   WP_TITLE=42_wordpress
 
