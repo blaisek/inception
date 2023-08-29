@@ -15,8 +15,8 @@ RUN mkdir -p /logs/
 RUN openssl req -x509 \
 	-sha256 -days 365 \
 	-nodes \
-	-newkey rsa:2048 -keyout /etc/ssl/private/btchiman.42lausanne.ch.key \
-	-subj "/CN=btchiman.42lausanne.ch/C=CH/ST=GE/L=GENEVA" -out /etc/ssl/certs/btchiman.42lausanne.ch.crt
+	-newkey rsa:2048 -keyout /etc/ssl/private/btchiman.42lausanne.fr.key \
+	-subj "/CN=btchiman.42lausanne.fr/C=CH/ST=GE/L=GENEVA" -out /etc/ssl/certs/btchiman.42lausanne.fr.crt
 
 COPY /conf/nginx.conf /etc/nginx/nginx.conf
 

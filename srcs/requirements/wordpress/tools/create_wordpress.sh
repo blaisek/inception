@@ -19,7 +19,7 @@ wp core config \
 	--allow-root
 
 wp core install \
-  --url="https://www.$DOMAIN" \
+  --url="https://$DOMAIN" \
   --title=$WP_TITLE \
 	--admin_name=$WP_ADMIN_USER \
 	--admin_password=$WP_ADMIN_PASSWORD \
