@@ -11,8 +11,12 @@
   BASEDIR=./srcs/
   ENV_PATH=$BASEDIR.env
   DOMAIN=btchiman.42.fr
+  MARIADB_NAME=maria
   MARIADB_HOST=mariadb
-  WP_TITLE=42_wordpress
+  MARIADB_ROOT_PASSWORD=osiris
+  WP_TITLE=${DOMAIN}
+  WP_EMAIL=wp@42.ch
+  WP_ADMIN_EMAIL=wp_admin@gmail.com
 
   # Catch if ctrl+c is pressed
   trap ctrl_c INT
@@ -38,25 +42,18 @@
   fi
 
   # Fill .env variables with prompt input
-  echo -e "\n${GREY}Enter your database name:${NC}"
-  read -r MARIADB_NAME
+
   echo -e "\n${GREY}Enter your database user name:${NC}"
   read -r MARIADB_USER
   echo -e "\n${GREY}Enter your database user password:${NC}"
   read -r MARIADB_PASSWORD
-  echo -e "\n${GREY}Enter your root password:${NC}"
-  read -r MARIADB_ROOT_PASSWORD
   echo -e "\n${GREY}Enter your wp user name:${NC}"
   read -r WP_USER
   echo -e "\n${GREY}Enter your wp user password:${NC}"
   read -r WP_PASSWORD
-  echo -e "\n${GREY}Enter your wp user email:${NC}"
-  read -r WP_EMAIL
-  read -r WP_ADMIN_USER
   while true; do
     echo -e "\n${GREY}Enter your wp admin user (Cannot contain admin/Admin or admin-istrator/Administrator):${NC}"
     read -r WP_ADMIN_USER
-
     if [[ $WP_ADMIN_USER =~ ^(admin|Admin|administrator|Administrator|.*admin-.*|.*Admin-.*|.*admini-.*|.*Admini-.*)$ ]]; then
       echo -e "${RED}Invalid username. Please choose a different username.${NC}"
     else
@@ -65,9 +62,6 @@
   done
   echo -e "\n${GREY}Enter your wp admin password:${NC}"
   read -r WP_ADMIN_PASSWORD
-  echo -e "\n${GREY}Enter your wp admin email:${NC}"
-  read -r WP_ADMIN_EMAIL
-
 
   # if .env not filled exit
   if [ -z "$MARIADB_ROOT_PASSWORD" ] || [ -z "$MARIADB_PASSWORD" ] || [ -z "$MARIADB_NAME" ] || [ -z "$MARIADB_USER" ] ||
