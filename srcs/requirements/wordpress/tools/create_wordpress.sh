@@ -32,7 +32,7 @@ wp user create $WP_USER \
 	--user_pass=$WP_PASSWORD \
 	--allow-root
 
-#wp plugin install redis-cache --activate --allow-root
+wp plugin install redis-cache --activate --allow-root
 
 mkdir -p /run/php/
 /usr/sbin/php-fpm7.4 -F
