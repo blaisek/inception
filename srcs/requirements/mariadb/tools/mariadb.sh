@@ -9,8 +9,8 @@ function check_status {
 }
 
 # Vérification et mise à jour de MariaDB
-mysql_upgrade -u root -p"$MARIADB_ROOT_PASSWORD"
-check_status "Échec de la mise à jour de MariaDB"
+#mysql_upgrade -u root -p"$MARIADB_ROOT_PASSWORD"
+#check_status "Échec de la mise à jour de MariaDB"
 
 # Démarrage de MariaDB
 mysqld --datadir=/var/lib/mysql &
