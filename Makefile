@@ -48,5 +48,8 @@ clean:
 	@echo "${ORANGE} Stoping and Removing containers images volumes networks.."
 	@docker compose -f $(DOCKERCOMPOSE) down --rmi all -v --remove-orphans
 
+fclean: clean
+	@echo "${ORANGE} Removing unused images.."
+	@docker system prune -a --volumes
 
-.PHONY: all up re stop clean env vol host
+.PHONY: all up re stop clean env vol host fclean
