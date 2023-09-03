@@ -1,6 +1,8 @@
 #!/bin/bash
 
-mysql_upgrade  --datadir=/var/lib/mysql
+mysql_upgrade
+
+mysql_install_db  --datadir=/var/lib/mysql
 
 
 mkdir -p /run/mysql
