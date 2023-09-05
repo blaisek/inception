@@ -43,6 +43,7 @@ services:
     container_name: nginx
     restart: always
     env_file: .env
+    privileged: true
     ports:
       - "443:443"
     volumes:
