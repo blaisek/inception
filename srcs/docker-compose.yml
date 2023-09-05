@@ -43,9 +43,8 @@ services:
     container_name: nginx
     restart: always
     env_file: .env
-    privileged: true
     ports:
-      - "443:443"
+      - "8443:443"
     volumes:
       - wordpress_data:/var/www/${DOMAIN}
     depends_on:
