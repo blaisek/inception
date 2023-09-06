@@ -1,6 +1,6 @@
 # Dockerfile for WordPress service
 
-FROM debian:11.7
+FROM debian:11
 
 # Install necessary packages
 SHELL ["/bin/bash", "-c"]
