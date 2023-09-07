@@ -3,8 +3,6 @@ FROM debian:11
 
 SHELL ["/bin/bash", "-c"]
 
-# Définissez l'utilisateur en tant que root
-USER root
 
 RUN apt-get update -yq
 RUN apt-get install mariadb-server -yq
@@ -16,5 +14,4 @@ COPY ./conf/maria.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY tools/mariadb.sh .
 RUN chmod +x mariadb.sh
 
-# Exécutez MariaDB en tant qu'utilisateur root
 CMD ["bash", "mariadb.sh"]
