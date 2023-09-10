@@ -1,7 +1,6 @@
 #!/bin/bash
 
-mysql_install_db --datadir=/var/lib/mysql
-service mysql start;
+#mysql_install_db --datadir=/var/lib/mysql
 
 # Changer les autorisations du répertoire de données
 #chown -R mysql:mysql /var/lib/mysql
@@ -23,7 +22,7 @@ done
 
 # Créer la base de données WordPress et l'utilisateur
 # Modifier les privilèges de l'utilisateur sur la base de données
-mysql -u root -p$MARIADB_ROOT_PASSWORD -e "CREATE DATABASE IF NOT EXISTS $MARIADB_NAME;"
+mysql -u root -p$MARIADB_ROOT_PASSWORD -e "CREATE DATABASE IF NOT EXISTS "test";"
 mysql -u root -p$MARIADB_ROOT_PASSWORD -e "CREATE USER IF NOT EXISTS '$MARIADB_USER' IDENTIFIED BY '$MARIADB_PASSWORD';"
 mysql -u root -p$MARIADB_ROOT_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO '$MARIADB_USER';"
 mysql -u root -p$MARIADB_ROOT_PASSWORD -e "FLUSH PRIVILEGES;"
