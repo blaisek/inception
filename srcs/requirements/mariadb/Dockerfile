@@ -1,17 +1,23 @@
-# Utilisez l'image de base Debian 11
-FROM debian:11
+FROM alpine:3.17
 
-SHELL ["/bin/bash", "-c"]
+LABEL maintainer="btchiman@student.42lausanne.ch"
 
+# Install mariadb
+RUN apk update && apk upgrade \
+    && apk add --no-cache --quiet --update \
+    	   mariadb mariadb-client vim
 
-RUN apt-get update -yq
-RUN apt-get install mariadb-server -yq
-RUN apt-get install iputils-ping -yq
-RUN rm -rf /etc/mysql && mkdir /etc/mysql
-RUN mkdir -p /run/mysqld /var/lib/mysql
-COPY ./conf/maria.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+RUN mkdir -p /var/lib/mysqld /run/mysqld
 
-COPY tools/mariadb.sh .
-RUN chmod +x mariadb.sh
+# Copy the database configuration file
+COPY ./conf/create_db.sql /tmp/create_db.sql
 
-CMD ["bash", "mariadb.sh"]
+# Copy the server configuration file
+COPY ./conf/maria.cnf /etc/my.cnf.d/
+
+# Copy the script to create the database
+COPY ./scripts/mariadb.sh /tmp/mariadb.sh
+RUN chmod +x /tmp/mariadb.sh
+
+# Run the entrypoint script
+ENTRYPOINT ["sh", "/tmp/mariadb.sh"]
