@@ -1,19 +1,20 @@
 #!/bin/bash
 
 mysql_install_db --datadir=/var/lib/mysql
+service mysql start;
 
 # Changer les autorisations du répertoire de données
-chown -R mysql:mysql /var/lib/mysql
+#chown -R mysql:mysql /var/lib/mysql
 
 # Créer le répertoire /run/mysqld s'il n'existe pas
-mkdir -p /run/mysqld
+#mkdir -p /run/mysqld
 
 # Changer les autorisations du répertoire /run/mysqld
-chown -R mysql:mysql /run/mysqld
+#chown -R mysql:mysql /run/mysqld
 
-mysqld --datadir=/var/lib/mysql &
+#mysqld --datadir=/var/lib/mysql &
 
-pid=$!
+#pid=$!
 
 # Attendre que MariaDB soit disponible
 until mysqladmin -u root -p$MARIADB_ROOT_PASSWORD ping >/dev/null 2>&1; do
@@ -29,6 +30,6 @@ mysql -u root -p$MARIADB_ROOT_PASSWORD -e "FLUSH PRIVILEGES;"
 mysql -u root -p$MARIADB_ROOT_PASSWORD -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MARIADB_ROOT_PASSWORD';"
 
 # Arrêter et redémarrer la base de données
-kill "$pid"
-wait "$pid"
-exec mysqld --datadir=/var/lib/mysql
+mysqladmin -u root -p$MARIADB_ROOT_PASSWORD shutdown
+
+exec mysqld_safe
