@@ -1,23 +1,40 @@
-FROM debian:11
+FROM alpine:3.17
 
-SHELL ["/bin/bash", "-c"]
+LABEL maintainer="btchiman@student.42lausanne.ch"
 
-RUN apt-get update -yq
-RUN apt-get install nginx -yq
-RUN apt-get install openssl -yq
-RUN apt-get install iputils-ping -yq
+ARG DOMAIN
 
-RUN mkdir -p /etc/ssl/private/
-RUN mkdir -p /etc/ssl/certs/
-RUN mkdir -p /var/www/html/
-RUN mkdir -p /logs/
+# Install nginx
+RUN apk update && apk upgrade \
+    && apk add --no-cache --quiet --update \
+    	   nginx openssl
 
-RUN openssl req -x509 \
-	-sha256 -days 365 \
+# Expose port 443
+EXPOSE 443
+
+# Generate self-signed SSL certificate
+RUN mkdir -p /etc/nginx/ssl/certs && \
+	openssl req \
+	# Generate a new certificate instead of a certificate request
+	-x509 \
+	# Days of validity
+	-days 60 \
+	# Algorithm of key
+	-newkey rsa:4096 \
+	# no encryption of private key (also no prompt). Should use -noenc instead
 	-nodes \
-	-newkey rsa:2048 -keyout /etc/ssl/private/btchiman.42lausanne.fr.key \
-	-subj "/CN=btchiman.42lausanne.fr/C=CH/ST=GE/L=GENEVA" -out /etc/ssl/certs/btchiman.42lausanne.fr.crt
+	# Output file of the private key
+	-keyout /etc/nginx/ssl/certs/${DOMAIN}.key \
+	# Outut file of the public key
+	-out /etc/ssl/certs/${DOMAIN}.crt \
+	# Certificate details
+	-subj "/CN=btchiman.42lausanne.fr/C=CH/ST=GE/L=GENEVA"
 
-COPY /conf/nginx.conf /etc/nginx/nginx.conf
+# Folder for the server configuration files
+RUN mkdir -p /var/run/nginx
 
+# Copy nginx configuration
+COPY ./conf/nginx.conf /etc/nginx/http.d/default.conf
+
+# Start nginx
 CMD ["nginx", "-g", "daemon off;"]
