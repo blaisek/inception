@@ -16,7 +16,7 @@ COPY ./conf/create_db.sql /tmp/create_db.sql
 COPY ./conf/maria.cnf /etc/my.cnf.d/
 
 # Copy the script to create the database
-COPY ./scripts/mariadb.sh /tmp/mariadb.sh
+COPY ./tools/mariadb.sh /tmp/mariadb.sh
 RUN chmod +x /tmp/mariadb.sh
 
 # Run the entrypoint script
