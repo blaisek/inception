@@ -26,7 +26,7 @@ RUN mkdir -p /etc/nginx/ssl/certs && \
 	# Output file of the private key
 	-keyout /etc/nginx/ssl/certs/${DOMAIN}.key \
 	# Outut file of the public key
-	-out /etc/ssl/certs/${DOMAIN}.crt \
+	-out /etc/nginx/ssl/certs/${DOMAIN}.crt \
 	# Certificate details
 	-subj "/CN=btchiman.42lausanne.fr/C=CH/ST=GE/L=GENEVA"
 
