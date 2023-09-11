@@ -10,8 +10,8 @@ if [ $? -ne 0 ]; then
     --auth-root-authentication-method=normal
 
   # Give permissions to the database for the user mysql
-  chown -R mysql:mysql /var/lib/mysql
-  chown -R mysql:mysql /run/mysqld
+  #chown -R mysql:mysql /var/lib/mysql
+  #chown -R mysql:mysql /run/mysqld
 
   # Start the server
   mysqld_safe --datadir=/var/lib/mysql &
