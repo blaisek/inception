@@ -1,32 +1,29 @@
 #!/bin/sh
 
-# Checking if the database is already created
-cat .setup 2>/dev/null
+mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
-if [ $? -ne 0 ]; then
+mkdir -p /run/mysql
+chown -R mysql:mysql /run/mysqld
+chown -R mysql:mysql /var/lib/mysql
 
-  # Run the server in the background and wait for it to start up before creating the database
-  mariadb-install-db --datadir=/var/lib/mysql \
-    --auth-root-authentication-method=normal
+mysqld --user=mysql --datadir=/var/lib/mysql &
 
-  # Give permissions to the database for the user mysql
-  chown -R mysql:mysql /var/lib/mysql
-  chown -R mysql:mysql /run/mysqld
+pid=$!
 
-  # Start the server
-  mysqld_safe --datadir=/var/lib/mysql &
+# Wait for MariaDB to become available
+until mysqladmin -u root -p${MARIADB_ROOT_PASSWORD} ping >/dev/null 2>&1; do
+	sleep 1
+done
 
-  # Wait until mariadb is ready to accept connections
-  while ! mysqladmin ping -h "mariadb" --silent; do
-    sleep 1
-  done
+# create wordpress database and user
+# modify user privileges on the database
+mysql -u root -p${MARIADB_ROOT_PASSWORD} -e "CREATE DATABASE IF NOT EXISTS ${MARIADB_NAME};"
+mysql -u root -p${MARIADB_ROOT_PASSWORD} -e "CREATE USER IF NOT EXISTS '${MARIADB_USER}' IDENTIFIED BY '${MARIADB_PASSWORD}';"
+mysql -u root -p${MARIADB_ROOT_PASSWORD} -e "GRANT ALL PRIVILEGES ON *.* TO '${MARIADB_USER}';"
+mysql -u root -p${MARIADB_ROOT_PASSWORD} -e "FLUSH PRIVILEGES;"
+mysql -u root -p${MARIADB_ROOT_PASSWORD} -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MARIADB_ROOT_PASSWORD}';"
 
-  # Create database from .sql file
-  eval "echo \"$(cat /tmp/create_db.sql)\"" | mariadb
-  touch .setup
-else
-  echo "Database already created and ready"
-fi
-
-# Run the server
-mysqld_safe --datadir=/var/lib/mysql
+# kill and restart database
+kill "$pid"
+wait "$pid"
+exec mysqld --user=mysql
