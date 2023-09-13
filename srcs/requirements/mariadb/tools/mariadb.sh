@@ -33,6 +33,8 @@ mysql -u root -p${MARIADB_ROOT_PASSWORD} -e "CREATE USER IF NOT EXISTS '${MARIAD
 mysql -u root -p${MARIADB_ROOT_PASSWORD} -e "GRANT ALL PRIVILEGES ON ${MARIADB_NAME}.* TO '${MARIADB_USER}';"
 mysql -u root -p${MARIADB_ROOT_PASSWORD} -e "FLUSH PRIVILEGES;"
 
+#check value of mariadb user
+echo "mariadb user: ${MARIADB_USER}"
 # Gracefully stop MariaDB
 mysqladmin -u root -p${MARIADB_ROOT_PASSWORD} shutdown
 
