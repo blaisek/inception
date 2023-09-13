@@ -9,9 +9,6 @@ RUN apk update && apk upgrade \
 
 RUN mkdir -p /var/lib/mysqld /run/mysqld
 
-# Copy the database configuration file
-COPY ./conf/create_db.sql /tmp/create_db.sql
-
 # Copy the server configuration file
 COPY ./conf/maria.cnf /etc/my.cnf.d/
 
