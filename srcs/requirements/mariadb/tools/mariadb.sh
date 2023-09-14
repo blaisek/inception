@@ -20,11 +20,11 @@ until mysqladmin -u root -p${MARIADB_ROOT_PASSWORD} ping >/dev/null 2>&1; do
     sleep 1
 done
 
-# Check if root password has already been set
-if [ ! -f /var/lib/mysql/root_password_set ]; then
-    mysql -u root -p${MARIADB_ROOT_PASSWORD} -e "ALTER USER 'root'@'localhost'IDENTIFIED WITH mysql_native_password BY '${MARIADB_ROOT_PASSWORD}';"
-    touch /var/lib/mysql/root_password_set
-fi
+# # Check if root password has already been set
+# if [ ! -f /var/lib/mysql/root_password_set ]; then
+#     mysql -u root -p${MARIADB_ROOT_PASSWORD} -e "ALTER USER 'root'@'localhost'IDENTIFIED WITH mysql_native_password BY '${MARIADB_ROOT_PASSWORD}';"
+#     touch /var/lib/mysql/root_password_set
+# fi
 
 # create wordpress database and user
 # modify user privileges on the database
