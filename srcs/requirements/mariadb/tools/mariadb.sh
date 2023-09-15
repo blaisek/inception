@@ -20,18 +20,17 @@ until mysqladmin -u root -p${MARIADB_ROOT_PASSWORD} ping >/dev/null 2>&1; do
     sleep 1
 done
 
-
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$MARIADB_ROOT_PASSWORD');
 
 # create wordpress database and user
-# modify user privileges on the database
 mysql -u root -p${MARIADB_ROOT_PASSWORD} -e "CREATE DATABASE IF NOT EXISTS ${MARIADB_NAME};"
 mysql -u root -p${MARIADB_ROOT_PASSWORD} -e "CREATE USER IF NOT EXISTS '${MARIADB_USER}' IDENTIFIED BY '${MARIADB_PASSWORD}';"
 mysql -u root -p${MARIADB_ROOT_PASSWORD} -e "GRANT ALL PRIVILEGES ON ${MARIADB_NAME}.* TO '${MARIADB_USER}';"
 mysql -u root -p${MARIADB_ROOT_PASSWORD} -e "FLUSH PRIVILEGES;"
 
+mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MARIADB_ROOT_PASSWORD}';"
 #check value of mariadb user
-echo "mariadb user: ${MARIADB_USER}"
+echo "mariadb root password: ${MARIADB_ROOT_PASSWORD}"
 # Gracefully stop MariaDB
 mysqladmin -u root -p${MARIADB_ROOT_PASSWORD} shutdown
 

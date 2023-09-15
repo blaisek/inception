@@ -17,4 +17,4 @@ COPY ./tools/mariadb.sh /tmp/mariadb.sh
 RUN chmod +x /tmp/mariadb.sh
 
 # Run the entrypoint script
-ENTRYPOINT ["sh", "/tmp/mariadb.sh"]
+CMD ["sh", "/tmp/mariadb.sh"]
