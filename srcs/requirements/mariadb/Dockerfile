@@ -9,4 +9,4 @@ COPY ./tools/mariadb.sh /tools/mariadb.sh
 
 RUN chmod 777 /tools/mariadb.sh
 
-ENTRYPOINT ["bash", "mariadb.sh"]
+ENTRYPOINT ["bash", "tools/mariadb.sh"]
