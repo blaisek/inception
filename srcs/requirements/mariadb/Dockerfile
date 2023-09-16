@@ -1,20 +1,15 @@
-FROM alpine:3.17
+FROM debian:bullseye
 
-LABEL maintainer="btchiman@student.42lausanne.ch"
+WORKDIR /app
 
-# Install mariadb
-RUN apk update && apk upgrade \
-    && apk add --no-cache --quiet --update \
-    	   mariadb mariadb-client vim
+COPY . .
 
-RUN mkdir -p /var/lib/mysqld /run/mysqld
+RUN apt-get -y update
+RUN apt-get install -y mariadb-server
 
-# Copy the server configuration file
-COPY ./conf/maria.cnf /etc/my.cnf.d/mariadb-server.cnf
+COPY ./conf/maria.cnf /etc/mysql/mariadb.conf.d/
 
-# Copy the script to create the database
-COPY ./tools/mariadb.sh /tmp/mariadb.sh
-RUN chmod +x /tmp/mariadb.sh
 
-# Run the entrypoint script
-CMD ["sh", "/tmp/mariadb.sh"]
+RUN chmod 777 /app/tools/mariadb.sh
+
+CMD ["/app/tools/maria.sh" ]
