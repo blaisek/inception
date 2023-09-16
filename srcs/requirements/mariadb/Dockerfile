@@ -14,6 +14,9 @@ RUN mkdir -p /var/run/mysqld \
 COPY ./conf/maria.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY ./tools/mariadb.sh /tools/mariadb.sh
 
+
 RUN chmod 777 /tools/mariadb.sh
 
+
 ENTRYPOINT ["bash", "tools/mariadb.sh"]
+CMD ["mysqld", "--bind-address=0.0.0.0"]
