@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Create Directory Structure
-mkdir -p /var/www/"$DOMAIN"
-cd /var/www/html/"$DOMAIN"
+mkdir -p /var/www/btchiman.42.fr
+cd /var/www/html/btchiman.42.fr
 
 # Check if wp core download has already been done
 if [ ! -e wp-config.php ]; then
