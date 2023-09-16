@@ -3,8 +3,8 @@ FROM debian:bullseye
 
 RUN apt-get -y update
 RUN apt-get install -y mariadb-server \
-&& apt-get install -y mariadb-client \
-&& apt-get vim \
+mariadb-client \
+vim \
 && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /var/run/mysqld \
