@@ -1,22 +1,22 @@
-FROM debian:bullseye
+FROM alpine:3.17
 
 
-RUN apt-get -y update
-RUN apt-get install -y mariadb-server \
-mariadb-client \
-vim \
-&& rm -rf /var/lib/apt/lists/*
+# Install mariadb
+RUN apk update && apk upgrade \
+    && apk add --no-cache --quiet --update \
+    	   mariadb mariadb-client vim
 
-RUN mkdir -p /var/run/mysqld \
-&& chown -R mysql:mysql /var/run/mysqld \
-&& chmod 777 /var/run/mysqld
+RUN mkdir -p /var/lib/mysqld /run/mysqld
 
-COPY ./conf/maria.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
-COPY ./tools/mariadb.sh /tools/mariadb.sh
+# Copy the database configuration file
+COPY ./conf/create_db.sql /tmp/create_db.sql
 
+# Copy the server configuration file
+COPY ./conf/mariadb-server.cnf /etc/my.cnf.d/
 
-RUN chmod 777 /tools/mariadb.sh
+# Copy the script to create the database
+COPY ./scripts/entrypoint.sh /tmp/entrypoint.sh
+RUN chmod +x /tmp/entrypoint.sh
 
-
-ENTRYPOINT ["bash", "tools/mariadb.sh"]
-CMD ["mysqld", "--bind-address=0.0.0.0"]
+# Run the entrypoint script
+ENTRYPOINT ["sh", "/tmp/entrypoint.sh"]
