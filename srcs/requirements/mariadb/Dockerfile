@@ -10,7 +10,7 @@ RUN apk update && apk upgrade \
 RUN mkdir -p /var/lib/mysqld /run/mysqld
 
 # Copy the server configuration file
-COPY ./conf/maria.cnf /etc/my.cnf.d/
+COPY ./conf/maria.cnf /etc/my.cnf.d/mariadb-server.cnf
 
 # Copy the script to create the database
 COPY ./tools/mariadb.sh /tmp/mariadb.sh
