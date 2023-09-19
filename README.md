@@ -78,8 +78,10 @@ srcs
 └── requirements
     ├── mariadb # MariaDB image
     │	├── conf
-    │	│	├── wordpress.sql # SQL script to create the database
-    │	│	└── mysqld.conf # MariaDB configuration file
+    │	│	├── create_db.sql # SQL script to create the database
+    │	│	└── mariadb-server.cnf # MariaDB configuration file
+    │   ├── scripts
+    │   │   └── entrypoint.sh # Script to create the database
     │	├── Dockerfile
     │	└── .dockerignore
     ├── nginx # Nginx image
